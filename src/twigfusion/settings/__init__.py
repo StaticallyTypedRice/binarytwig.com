@@ -61,22 +61,78 @@ for key in db_config_keys:
     except KeyError:
         pass
 
-# Applies optional configuration data if applicable
+# Applies analytics configurations if applicable
+try:
+    ANALYTICAL_INTERNAL_IPS = config['analytics.meta.internal_ips'].split(',')
+except KeyError:
+    pass
+try:
+    ANALYTICAL_AUTO_IDENTIFY = bool(int(config['analytics.meta.auto_identify']))
+except KeyError:
+    pass
+
+try:
+    if bool(int(config['analytics.google.enabled'])):
+        try:
+            GOOGLE_ANALYTICS_PROPERTY_ID = config['analytics.google.id']
+        except KeyError:
+            pass
+        try:
+            GOOGLE_ANALYTICS_DISPLAY_ADVERTISING = config['analytics.google.display_advertising']
+        except KeyError:
+            pass
+        try:
+            GOOGLE_ANALYTICS_SITE_SPEED = config['analytics.google.site_speed']
+        except KeyError:
+            pass
+        try:
+            GOOGLE_ANALYTICS_ANONYMIZE_IP = config['analytics.google.anonymize_ip']
+        except KeyError:
+            pass
+        try:
+            GOOGLE_ANALYTICS_SAMPLE_RATE = config['analytics.google.sample_rate']
+        except KeyError:
+            pass
+        try:
+            GOOGLE_ANALYTICS_SITE_SPEED_SAMPLE_RATE = config['analytics.google.site_speed_sample_rate']
+        except KeyError:
+            pass
+        try:
+            GOOGLE_ANALYTICS_SESSION_COOKIE_TIMEOUT = config['analytics.google.session_cookie_timeout']
+        except KeyError:
+            pass
+        try:
+            GOOGLE_ANALYTICS_VISITOR_COOKIE_TIMEOUT = config['analytics.google.visitor_cookie_timeout']
+        except KeyError:
+            pass
+except KeyError:
+    pass
+
+try:
+    if bool(int(config['analytics.matomo.enabled'])):
+        try:
+            PIWIK_DOMAIN_PATH = config['analytics.matomo.id']
+        except KeyError:
+            pass
+        try:
+            PIWIK_DOMAIN_PATH = config['analytics.matomo.server']
+        except KeyError:
+            pass
+except KeyError:
+    pass
+
+# Applies additional configuration data if applicable
 try:
     GOOGLE_SITE_VERIFICATION = config['google.site_verification']
 except KeyError:
     GOOGLE_SITE_VERIFICATION = ''
-try:
-    GOOGLE_ANALYTICS_ID = config['google.analytics_id']
-except KeyError:
-    GOOGLE_ANALYTICS_ID = ''
 
 try:
     exec('from .{0} import *'.format(MODE))
 except ImportError:
     raise ConfigurationError('Could not import settings file for the mode \'{0}\'.'.format(MODE))
 
-# Delete non-setting variables
+# Delete non-settings variables
 del config_path
 del config_file
 del config
