@@ -1,0 +1,50 @@
+{# Navigation bar #}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}">TwigFusion</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="{% if navbar.selected == 'home' %}active{% endif %}">
+                    <a href="{% url 'home' %}">Home {% if header.selected == 'home' %}<span class="sr-only">(current)</span>{% endif %}</a>
+                </li>
+                <li class="{% if navbar.selected == 'about' %}active{% endif %}">
+                    <a href="{% url 'about' %}">About {% if header.selected == 'about' %}<span class="sr-only">(current)</span>{% endif %}</a>
+                </li>
+                {% if external_sites %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Social <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% for site in external_sites %}
+                                <li><a href="{{ site.url }}" target="{% if site.new_tab %}_blank{% endif %}" rel="{% if site.new_tab %}noopener noreferrer{% endif %}">{% if site.icon %}{{ site.icon|safe }}&nbsp;&nbsp;{% endif %}{{ site.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+                <li class="{% if navbar.selected == 'articles' %}active{% endif %}">
+                    <a href="{% url 'article_list' %}">Articles {% if header.selected == 'articles' %}<span class="sr-only">(current)</span>{% endif %}</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_staff %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'article_create' %}" target="_blank" rel="noopener noreferrer">Create Article</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url 'admin:index' %}" target="_blank" rel="noopener noreferrer">Django Admin</a></li>
+                            <li><a href="{% url 'admin:blog_article_changelist' %}" target="_blank" rel="noopener noreferrer">Article Admin</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

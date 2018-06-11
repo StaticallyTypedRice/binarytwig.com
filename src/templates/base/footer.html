@@ -1,0 +1,24 @@
+{# Footer #}
+<footer>
+    <ul class="footer-links">
+        <li class="brand"><a href="{% url 'home' %}">TwigFusion</a></li>
+        <li>&#183;</li>
+        <li><a href="javascript:window.scrollTo(0, 0)">Top</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'article_list' %}">Articles</a></li>
+        <li><a href="{% url 'privacy_policy' %}">Privacy</a></li>
+    </ul>
+
+    <span>&copy; 2018 TwigFusion.</span>
+    <br />
+    <span>
+        Page rendered on {% now "F j, Y H:i:s" %}.
+
+        {# Display the website mode if the user is an admin #}
+        {% if request.user.is_staff %}
+            <span style="padding: 0;opacity: 0.7;">&nbsp;Mode: {{ website_mode }}.</span>
+        {% endif %}
+    </span>
+
+</footer>
+

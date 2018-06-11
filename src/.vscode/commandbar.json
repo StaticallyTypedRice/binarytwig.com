@@ -1,0 +1,16 @@
+{
+	"skipTerminateQuickPick": true,
+	"skipSwitchToOutput": false,
+	"skipErrorMessage": true,
+	"commands": [
+		{
+			"text": "Build Static",
+			"tooltip": "Compile TypeScript and collect static files.",
+			"color": "white",
+            "command": "tsc & .\\collectstatic --noinput & echo. & echo Successfully compiled TypeScript and collected static files.",
+			"alignment": "left",
+			"skipTerminateQuickPick": false,
+			"priority": 0
+		}
+	]
+}

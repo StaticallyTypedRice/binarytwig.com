@@ -1,0 +1,36 @@
+{# Homepage #}
+
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/blog/article.css' %}" type="text/css" />
+    {% if google_site_verification %}
+        <meta name="google-site-verification" content="{{ google_site_verification }}" />
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="card heading">
+        <h1>TwigFusion</h1>
+    </div>
+    {% for article in articles %}
+        {% if article.thumbnail %}
+            <div class="banner">
+                <a href="{% url 'article' id_=article.id %}">
+                    <img src="{{ article.thumbnail }}" />
+                </a>
+            </div>
+        {% endif %}
+        <div class="card homepage-article-thumbnail">
+            <h1><a href="{% url 'article' id_=article.id %}">{{ article.title }}</a></h1>
+            <div class="article-meta">
+                <span class="date-time" title="{{ article.time_created|timesince }} ago">{{ article.time_created }}</span>
+            </div>
+        </div>
+    {% empty %}
+        <div class="card">
+            <p>There are no featured articles.</p>
+        </div>
+    {% endfor %}
+{% endblock %}

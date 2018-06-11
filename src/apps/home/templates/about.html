@@ -1,0 +1,40 @@
+{# About page #}
+
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="card">
+        <h1>About</h1>
+        {% if content %}
+            {{ content.content|safe }}
+            <hr />
+            <span>Last edited <span title="{{ content.time_edited|timesince }} ago">{{ content.time_edited }}</span></span>
+        {% else %}
+            {# If there is no database entry. #}
+            <p>This site does not have an about page.</p>
+        {% endif %}
+    </div>
+
+    {% if request.user.is_staff %}
+        {% if content %}
+            <div class="card">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="{% url 'admin:home_about_change' content.id %}">Django Admin</a>
+                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'admin:home_about_change' content.id %}">Edit</a></li>
+                        <li><a href="{% url 'admin:home_about_delete' content.id %}">Delete</a></li>
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <div class="card">
+                <a class="btn btn-primary" href="{% url 'admin:home_about_add' %}">Create about page</a>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

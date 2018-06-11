@@ -1,0 +1,10 @@
+{
+    // extensions.json documentation: 
+    // http://go.microsoft.com/fwlink/?LinkId=827846
+	"recommendations": [
+        "ms-python.python",
+		"bibhasdn.django-snippets",
+		"bibhasdn.django-html",
+        "gsppvo.vscode-commandbar"
+	]
+}

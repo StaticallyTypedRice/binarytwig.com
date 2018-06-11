@@ -1,0 +1,62 @@
+/* Navbar Customizations. */
+
+.navbar-default {
+    background-color: var(--ui-color-primary);
+    border: none;
+    border-radius: 0;
+}
+/* Navbar and dropdown links */
+.navbar-default .navbar-nav li a,
+.dropdown-menu li a {
+    color: #ffffff !important;
+    font-weight: bold !important;
+}
+/* Hover, focus, selected and expanded links */
+.navbar-default .navbar-nav li a:hover,
+.navbar-default .navbar-nav li a:focus,
+.navbar-default .navbar-nav li.active a,
+.navbar-default .navbar-nav li.open a.dropdown-toggle,
+.dropdown-menu li a:hover,
+.dropdown-menu li a:focus {
+    color: #ffffff !important;
+    background-color: var(--ui-color-secondary) !important;
+}
+
+/* Navbar brand */
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: var(--ui-color-primary);
+    background-color: #ffffff;
+}
+
+/* Mobile navbar dropdown */
+.navbar-default .navbar-toggle {
+    border: none;
+}
+/* Dropdown toggle */
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+}
+.navbar-default .navbar-toggle:hover .icon-bar {
+    background-color: #ffffff;
+}
+.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: var(--ui-color-secondary);
+}
+.navbar-default .navbar-toggle:hover {
+    background-color: var(--ui-color-secondary);
+}
+.navbar-default .navbar-toggle:focus {
+    background-color: #ffffff;
+}
+.navbar-default .navbar-collapse {
+    border: none;
+}
+
+.dropdown-menu {
+    background-color: var(--ui-color-primary);
+    border: 1px solid var(--ui-color-secondary);
+    border-radius: 0;
+    box-shadow: none;
+}
