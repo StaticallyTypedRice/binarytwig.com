@@ -5,3 +5,4 @@ django-cleanup>=1.0.0
 django-htmlmin>=0.10.0
 django-import-export>=0.5.1
 django-cookie-law>=1.0.13
+django-analytical>=2.4.0

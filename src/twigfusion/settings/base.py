@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'import_export',
     'cookielaw',
+    'analytical',
 
     # TwigFusion apps
     'apps.home',
