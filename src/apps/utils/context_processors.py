@@ -9,14 +9,11 @@ def website_mode(request):
     return {'website_mode': settings.MODE}
 
 def google_web_utils(request):
-    '''Obtains Google webmaster tools and analytics configurations 
-    from settings.
+    '''Obtains Google webmaster tools configuration from settings.
 
-    Creates two context variables: 'google_site_verification'
-    and 'google_analytics_id'.
+    Creates a variables called 'google_site_verification'..
     '''
 
     return {
         'google_site_verification': settings.GOOGLE_SITE_VERIFICATION,
-        'google_analytics_id': settings.GOOGLE_ANALYTICS_ID,
     }
