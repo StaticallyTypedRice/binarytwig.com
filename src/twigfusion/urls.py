@@ -45,6 +45,8 @@ pages = [
     url(r'^about/privacy/$', utils.privacy_policy, name='privacy_policy'),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='misc/robots.txt',
                                                content_type='text/plain')),
+    url(r'^web\.manifest$', TemplateView.as_view(template_name='misc/web.manifest',
+                                                 content_type='application/manifest+json')),
 
 ]
 
