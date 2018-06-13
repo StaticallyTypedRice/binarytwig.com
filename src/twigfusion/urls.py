@@ -32,6 +32,8 @@ pages = [
 
     # About page
     url(r'^about/$', about.about, name='about'),
+    url(r'^about/third-party-licenses/$', about.third_party_licenses,
+        name='third_party_licenses'),
 
     # Blog
     url(r'^', include('apps.blog.urls')),

@@ -24,3 +24,8 @@ class About(models.Model):
     def __str__(self):
         return self.content
         
+class ThirdPartyLicenses(About):
+    '''The model for the third party licenses page.'''
+
+    class Meta:
+        verbose_name_plural = 'Third party licenses'

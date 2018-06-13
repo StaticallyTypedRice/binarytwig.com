@@ -19,3 +19,6 @@ class AboutForm(forms.ModelForm):
                 'rows': 40,
             }),
         }
+
+class ThirdPartyLicensesForm(AboutForm):
+    '''The form for the ThirdPartyLicenses model.'''
