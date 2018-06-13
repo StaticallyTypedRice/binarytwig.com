@@ -5,15 +5,15 @@ from apps.utils.functions import parse_formatting
 
 from .models import About
 
-def about(request):
-    '''About page'''
+def about_abstract(request, model, template, navbar_selected=False):
+    '''Abstract function for the pages'''
 
     try:
-        content = About.objects.get()
+        content = model.objects.get()
         content.content = parse_formatting(content.content,
                                            html=content.html,
                                            markdown=content.markdown)
-    except About.DoesNotExist:
+    except model.DoesNotExist:
         content = None
 
     # Only display the page if it has been set to 'visible'.
@@ -23,7 +23,12 @@ def about(request):
     context = {
         'content': content,
         'navbar': {
-            'selected': 'about',
+            'selected': "about" if navbar_selected else None,
         },
     }
-    return render(request, 'about.html', context)
+    return render(request, template, context)
+
+def about(request):
+    '''About page'''
+
+    return about_abstract(request, About, 'about.html', True)
