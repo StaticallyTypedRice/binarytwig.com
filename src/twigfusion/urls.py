@@ -21,6 +21,7 @@ from django.views.generic import TemplateView
 
 # Imports from views
 from apps.home import views as home
+from apps.about import views as about
 from apps.utils import views as utils
 
 # Regular webpages
@@ -30,7 +31,7 @@ pages = [
     url(r'^$', home.home, name='home'),
 
     # About page
-    url(r'^about/$', home.about, name='about'),
+    url(r'^about/$', about.about, name='about'),
 
     # Blog
     url(r'^', include('apps.blog.urls')),

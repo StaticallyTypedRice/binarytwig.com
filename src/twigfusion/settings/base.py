@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
     # TwigFusion apps
     'apps.home',
+    'apps.about',
     'apps.blog',
     'apps.utils',
 ]
