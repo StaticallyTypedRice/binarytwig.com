@@ -17,12 +17,13 @@ footer span a {
     opacity: 0.7;
     text-decoration: none;
 }
-footer span a:hover {
+footer span a:hover,
+footer span a:focus {
     color: #ffffff;
     text-decoration: underline;
 }
 .footer-text-separator {
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 /* Website mode indicator */
