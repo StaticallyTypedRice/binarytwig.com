@@ -9,6 +9,9 @@ class AboutForm(forms.ModelForm):
         model = About
         fields = [
             'content',
+            'markdown',
+            'html',
+            'visible',
         ]
         widgets = {
             'content': forms.Textarea(attrs={

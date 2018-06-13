@@ -11,8 +11,13 @@ def about(request):
     try:
         content = About.objects.get()
         content.content = parse_formatting(content.content,
-                                           html=True, markdown=True)
+                                           html=content.html,
+                                           markdown=content.markdown)
     except About.DoesNotExist:
+        content = None
+
+    # Only display the page if it has been set to 'visible'.
+    if not content.visible:
         content = None
 
     context = {
