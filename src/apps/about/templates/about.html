@@ -20,20 +20,20 @@
         {% if content %}
             <div class="card">
                 <div class="btn-group">
-                    <a class="btn btn-primary" href="{% url 'admin:home_about_change' content.id %}">Django Admin</a>
+                    <a class="btn btn-primary" href="{% url 'admin:about_about_change' content.id %}">Django Admin</a>
                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'admin:home_about_change' content.id %}">Edit</a></li>
-                        <li><a href="{% url 'admin:home_about_delete' content.id %}">Delete</a></li>
+                        <li><a href="{% url 'admin:about_about_change' content.id %}">Edit</a></li>
+                        <li><a href="{% url 'admin:about_about_delete' content.id %}">Delete</a></li>
                     </ul>
                 </div>
             </div>
         {% else %}
             <div class="card">
-                <a class="btn btn-primary" href="{% url 'admin:home_about_add' %}">Create about page</a>
+                <a class="btn btn-primary" href="{% url 'admin:about_about_add' %}">Create about page</a>
             </div>
         {% endif %}
     {% endif %}
