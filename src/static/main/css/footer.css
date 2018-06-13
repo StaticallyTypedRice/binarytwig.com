@@ -8,6 +8,28 @@ footer span {
     padding-bottom: 0;
     font-size: 12px;
 }
+footer span span,
+footer span a {
+    margin: 0;
+    padding: 0;
+}
+footer span a {
+    opacity: 0.7;
+    text-decoration: none;
+}
+footer span a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+.footer-text-separator {
+    margin-left: 5px;
+}
+
+/* Website mode indicator */
+.website-mode {
+    padding: 0;
+    opacity: 0.5;
+}
 
 /* Footer Links */
 .footer-links {
