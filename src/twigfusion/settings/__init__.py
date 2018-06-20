@@ -111,7 +111,7 @@ except KeyError:
 try:
     if bool(int(config['analytics.matomo.enabled'])):
         try:
-            PIWIK_DOMAIN_PATH = config['analytics.matomo.id']
+            PIWIK_SITE_ID = config['analytics.matomo.id']
         except KeyError:
             pass
         try:
