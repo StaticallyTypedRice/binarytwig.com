@@ -28,7 +28,7 @@ def html_modifications(request):
     
     html_modifications = HtmlModifications.objects.get()
 
-    # If the modifications are not implemented, return None
+    # If the modifications are not implemented, return empty strings
     if not html_modifications.implemented:
         html_modifications = {
             'head': '',
