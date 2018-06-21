@@ -3,6 +3,46 @@ import html as html_parser
 
 from django.core.paginator import Paginator, EmptyPage
 
+def str_to_bool(string: str, strict=True) -> bool:
+    '''Parses the strings 'true' or 'false' to a boolean.
+
+    The strings are not case sensitive.
+
+    Arguments:
+
+        string: The string to be parsed.
+
+        strict: If True, only 'true' and 'false' will be parsed, 
+                with other strings raising a ValueError.
+                If False, 'true' will return True and other strings
+                will return False. 
+    
+    NOTE: This is different from using the bool() function on a string.
+          The bool() function returns false for an empty string,
+          and returns true otherwise. This function parses the words
+          'true' and 'false' into a boolean.'''
+
+    # Use the lower-case version of the string
+    string_lowercase = string.lower()
+
+    if string_lowercase == 'true':
+        # the string is equal to 'true'
+        return True
+    else:
+        if strict:
+            if string_lowercase == 'false':
+                # the string is equal to 'false'
+                return False
+            else:
+                # The string is invalid
+                raise ValueError(
+                    f'The string \'{string}\' is invalid. '
+                    'Only \'true\' or \'false\' are valid in strict mode.'
+                )
+        else:
+            # The string does not equal 'true'
+            return False
+
 def parse_formatting(text: str, html: bool = False, markdown: bool = False) -> str:
     '''Parses formatted text.
 
