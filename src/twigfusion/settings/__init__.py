@@ -90,7 +90,7 @@ except ValueError:
         'The <debug> element consists of '
         f'<debug enabled="{get_unique_xml_element(mode, 'debug').get('enabled')}" />'
         'in the configuration file. '
-        'Expected <debug enabled="true" /> or <debug enabled="true" />'
+        'Expected <debug enabled="true" /> or <debug enabled="false" />'
     )
 
 # Apply the SECRET_KEY setting.
