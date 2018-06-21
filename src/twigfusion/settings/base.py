@@ -88,6 +88,7 @@ TEMPLATES = [
                 # Custom context processors
                 'apps.utils.context_processors.website_mode',
                 'apps.utils.context_processors.google_web_utils',
+                'apps.utils.context_processors.html_modifications',
                 'apps.home.context_processors.external_sites'
             ],
         },
