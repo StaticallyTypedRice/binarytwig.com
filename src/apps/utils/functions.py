@@ -2,6 +2,9 @@ import markdown as markdown_parser
 import html as html_parser
 
 from django.core.paginator import Paginator, EmptyPage
+from xml.etree.ElementTree import Element
+
+from .exceptions import XmlElementNotFound, XmlElementNotUnique
 
 def str_to_bool(string: str, strict=True) -> bool:
     '''Parses the strings 'true' or 'false' to a boolean.
@@ -43,6 +46,33 @@ def str_to_bool(string: str, strict=True) -> bool:
             # The string does not equal 'true'
             return False
 
+def get_unique_xml_element(scope: Element, element: str) -> Element:
+    '''Returns an XML element if it is unique in the current scope.
+    Returns an error if it is not unique or was not found.
+
+    Uses defusedxml for parsing.
+
+    Arguments:
+
+        scope: The current XML scope.
+
+        element: The name of the element.
+
+    '''
+
+    # Find all occurances of the specified element
+    elements = scope.findall(element)
+
+    if len(elements) == 0:
+        # If there are no elements, raise an error.
+        raise XmlElementNotFound(f'Could not find the <{element}> element.')
+    elif len(elements) > 1:
+        # If there is more than one element, raise an error.
+        raise XmlElementNotUnique(f'There is more than one <{element}> element.')
+    else:
+        # Return the element
+        return elements[0]
+            
 def parse_formatting(text: str, html: bool = False, markdown: bool = False) -> str:
     '''Parses formatted text.
 
