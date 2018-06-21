@@ -22,8 +22,8 @@ WEBSITE_NAME = 'twigfusion'
 # The paths for configuration file.
 # The paths will be searched in order, and the first valid path will be used.
 CONFIGURATION_FILE_PATHS = [
-    os.path.join(BASE_DIR, '..', '..', WEBSITE_NAME + '.ini'),
-    os.path.join(BASE_DIR, '..', 'setup', WEBSITE_NAME + '.ini')
+    os.path.join(BASE_DIR, '..', '..', WEBSITE_NAME + '.config'),
+    os.path.join(BASE_DIR, '..', 'setup', WEBSITE_NAME + '.config')
 ]
 
 # Quick-start development settings - unsuitable for production

@@ -1,5 +1,6 @@
-import configparser
+import defusedxml.ElementTree as xml
 import os.path
+from apps.utils.functions import str_to_bool, get_unique_xml_element
 from .base import *
 
 class ConfigurationNotFound(Exception):
@@ -7,8 +8,6 @@ class ConfigurationNotFound(Exception):
 
 class ConfigurationError(Exception):
     '''The exception that is raised when there is an error in configuration.'''
-
-config_file = configparser.ConfigParser()
 
 # Iterates through the list of possible file paths until the file is found.
 # The first file that is found is used.
@@ -21,119 +20,90 @@ for path in CONFIGURATION_FILE_PATHS:
 # Reads the configuration file.
 # Raises an error if the file could not be found.
 try:
-    config_file.read(config_path)
+    # Parse the XML file with defusedxml.
+    config_file = xml.parse(config_path)
 except NameError:
+    # If no files were found in the paths specified, raise an error.
     paths = ''
     for path in CONFIGURATION_FILE_PATHS:
         paths += '\n\t' + path
-    raise ConfigurationNotFound('The '+ WEBSITE_NAME +'.ini file could not be found in the paths specified:' + paths)
+    raise ConfigurationNotFound(
+        'The configuration file could not be found '
+        'in the paths specified:' + paths
+    )
 
-# Applies the website mode.
+# Parse the XML root.
+# This will serve as the config file variable.
+config = config_file.getroot()
+
+# If the root element isn't <website>, raise an error.
+if config.tag != 'website':
+    raise ConfigurationError('The XML root element is <{config.tag}>, expected <website>.')
+
 try:
-    MODE = config_file[WEBSITE_NAME]['mode']
+    # If the 'name' attribute is not the website name, raise an error.
+    if config.get('name') != WEBSITE_NAME:
+        raise ConfigurationError(
+            f'The website name is \'{config.attrib['name']}\', '
+            f'expected \'{WEBSITE_NAME}\'.'
+        )
+except NameError:
+    # If WEBSITE_NAME is not defined, raise an error.
+    raise ConfigurationError('The WEBSITE_NAME variable is not defined in the Django settings.')
 except KeyError:
-    raise ConfigurationError('The \''+ WEBSITE_NAME +'\' section or website mode is undefined.')
+    # If there is no website name, raise an error.
+    raise ConfigurationError('A website name was not specified in the configuration file.')
 
-# Creates the 'config' variable conataining 
-# the INI section corresponding to the website mode.
-config = config_file['mode.{0}'.format(MODE)]
+# Find the current website mode
+# If the website mode is empty, raise an error.
+mode_name = get_unique_xml_element(config, 'current-mode').text
+if not mode_name:
+    raise ConfigurationError('The current website mode was not specified.')
 
-# Applies the required configuration data.
+# Parse the modes list and find the current mode.
+mode = None
+for m in get_unique_xml_element(config, 'modes').findall('mode'):
+    # Search the mode name attributes for the current mode
+    if m.get('name') == mode_name:
+        # Check that the current mode is unique. Raise an error if it isn't.
+        # This is required to avoid confusion regarding which mode is used.
+        if mode is None:
+            mode = m
+        else:
+            raise ConfigurationError(
+                'There is more than one mode with '
+                f'the name \'{mode_name}\'.'
+            )
+
+# Import the settings file corresponding to the selected mode if it exists.
 try:
-    DEBUG = bool(int(config['debug']))
-    SECRET_KEY = config['secret_key']
-except KeyError:
+    exec(f'from .{mode_name} import *')
+except ModuleNotFoundError:
+    pass
+
+# Apply the DEBUG setting.
+# If the current mode does not specify this setting, raise an error.
+try:
+    DEBUG = str_to_bool(get_unique_xml_element(mode, 'debug').get('enabled'))
+except ValueError:
     raise ConfigurationError(
-        'The mode \'{0}\' is undefined or is missing required keys.'.format(MODE))
+        'The <debug> element consists of '
+        f'<debug enabled="{get_unique_xml_element(mode, 'debug').get('enabled')}" />'
+        'in the configuration file. '
+        'Expected <debug enabled="true" /> or <debug enabled="true" />'
+    )
 
-# Applies database configurations if applicable
-db_config_keys = [
-    'ENGINE',
-    'NAME',
-    'USER',
-    'PASSWORD',
-    'HOST',
-    'PORT',
-]
-for key in db_config_keys:
-    try:
-        DATABASES['default'][key] = config['db.{0}'.format(key.lower())]
-    except KeyError:
-        pass
-
-# Applies analytics configurations if applicable
-try:
-    ANALYTICAL_INTERNAL_IPS = config['analytics.meta.internal_ips'].split(',')
-except KeyError:
-    pass
-try:
-    ANALYTICAL_AUTO_IDENTIFY = bool(int(config['analytics.meta.auto_identify']))
-except KeyError:
-    pass
-
-try:
-    if bool(int(config['analytics.google.enabled'])):
-        try:
-            GOOGLE_ANALYTICS_PROPERTY_ID = config['analytics.google.id']
-        except KeyError:
-            pass
-        try:
-            GOOGLE_ANALYTICS_DISPLAY_ADVERTISING = config['analytics.google.display_advertising']
-        except KeyError:
-            pass
-        try:
-            GOOGLE_ANALYTICS_SITE_SPEED = config['analytics.google.site_speed']
-        except KeyError:
-            pass
-        try:
-            GOOGLE_ANALYTICS_ANONYMIZE_IP = config['analytics.google.anonymize_ip']
-        except KeyError:
-            pass
-        try:
-            GOOGLE_ANALYTICS_SAMPLE_RATE = config['analytics.google.sample_rate']
-        except KeyError:
-            pass
-        try:
-            GOOGLE_ANALYTICS_SITE_SPEED_SAMPLE_RATE = config['analytics.google.site_speed_sample_rate']
-        except KeyError:
-            pass
-        try:
-            GOOGLE_ANALYTICS_SESSION_COOKIE_TIMEOUT = config['analytics.google.session_cookie_timeout']
-        except KeyError:
-            pass
-        try:
-            GOOGLE_ANALYTICS_VISITOR_COOKIE_TIMEOUT = config['analytics.google.visitor_cookie_timeout']
-        except KeyError:
-            pass
-except KeyError:
-    pass
-
-try:
-    if bool(int(config['analytics.matomo.enabled'])):
-        try:
-            PIWIK_DOMAIN_PATH = config['analytics.matomo.id']
-        except KeyError:
-            pass
-        try:
-            PIWIK_DOMAIN_PATH = config['analytics.matomo.server']
-        except KeyError:
-            pass
-except KeyError:
-    pass
-
-# Applies additional configuration data if applicable
-try:
-    GOOGLE_SITE_VERIFICATION = config['google.site_verification']
-except KeyError:
-    GOOGLE_SITE_VERIFICATION = ''
-
-try:
-    exec('from .{0} import *'.format(MODE))
-except ImportError:
-    raise ConfigurationError('Could not import settings file for the mode \'{0}\'.'.format(MODE))
+# Apply the SECRET_KEY setting.
+# If the current mode does not specify this setting, raise an error.
+SECRET_KEY = get_unique_xml_element(mode, 'secret-key').text
+if not SECRET_KEY:
+    raise ConfigurationError(
+        f'The <secret-key> element in the configuration '
+        'file consists of an empty string.'
+    )
 
 # Delete non-settings variables
-del config_path
 del config_file
 del config
-del db_config_keys
+del mode_name
+del mode
