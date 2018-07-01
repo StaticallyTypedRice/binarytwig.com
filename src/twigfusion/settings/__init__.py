@@ -63,7 +63,7 @@ try:
     # If the 'name' attribute is not the website name, raise an error.
     if config.get('name') != WEBSITE_NAME:
         raise ConfigurationError(
-            f'The website name is \'{config.attrib['name']}\', '
+            f'The website name is \'{config.attrib["name"]}\', '
             f'expected \'{WEBSITE_NAME}\'.'
         )
 except NameError:
@@ -140,9 +140,10 @@ try:
     try:
         GOOGLE_SITE_VERIFICATION = get_unique_xml_element(google, 'site-verification').text
     except XmlElementNotFound:
-        
+        pass
     # TODO: Implement reCAPTCHA support.
     try:
+
         recaptcha = get_unique_xml_element(google, 'recaptcha')
 
         try:
@@ -155,7 +156,7 @@ try:
                 RECAPTCHA_PUBLIC_KEY = get_unique_xml_element(recaptcha, 'public-key').text
             except XmlElementNotFound:
                 raise ConfigurationError('The reCAPTCHA public key is required when reCAPTCHA is enabled.')
-                        try:
+            try:
                 RECAPTCHA_PRIVATE_KEY = get_unique_xml_element(recaptcha, 'private-key').text
             except XmlElementNotFound:
                 raise ConfigurationError('The reCAPTCHA private key is required when reCAPTCHA is enabled.')
@@ -179,7 +180,7 @@ try:
 
         for ip in get_unique_xml_element(analytics, 'internal-ips'):
             # Iterate through the list of IP addresses.
-            if ip.tag = 'address':
+            if ip.tag == 'address':
                 # Only use IP addresses in the <address> tags.
                 ANALYTICAL_INTERNAL_IPS.append(ip)
 
@@ -236,7 +237,6 @@ try:
                 GOOGLE_ANALYTICS_VISITOR_COOKIE_TIMEOUT = get_unique_xml_element(google_analytics, 'cookie-timeout').get('visitor')
             except XmlElementNotFound:
                 pass
-            except
 
         del google_analytics
 
@@ -262,7 +262,7 @@ try:
     except XmlElementNotFound:
         pass
 
-del analytics
+    del analytics
 
 except XmlElementNotFound:
     pass
