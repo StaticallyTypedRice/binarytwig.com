@@ -117,21 +117,28 @@ if not SECRET_KEY:
     )
 
 # Apply database configurations if applicable.
-database = get_unique_xml_element(mode, 'database')
-database_keys = [
-    # The accepted database configuration data.
-    'engine',
-    'name',
-    'user',
-    'password',
-    'host',
-    'port',
-]
-for key in database_keys:
-    try:
-        DATABASES['default'][key] = get_unique_xml_element(database, key).text
-    except XmlElementNotFound:
-        pass
+try:
+    database = get_unique_xml_element(mode, 'database')
+    database_keys = [
+        # The accepted database configuration data.
+        'engine',
+        'name',
+        'user',
+        'password',
+        'host',
+        'port',
+    ]
+    for key in database_keys:
+        try:
+            DATABASES['default'][key] = get_unique_xml_element(database, key).text
+        except XmlElementNotFound:
+            pass
+
+    del database
+    del database_keys
+
+except XmlElementNotFound:
+    pass
 
 # Applies Google services configuration data if applicable
 try:
@@ -272,5 +279,3 @@ del config_file
 del config
 del mode_name
 del mode
-del database
-del database_keys
