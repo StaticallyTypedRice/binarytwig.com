@@ -10,6 +10,24 @@ class ConfigurationNotFound(Exception):
 class ConfigurationError(Exception):
     '''The exception that is raised when there is an error in configuration.'''
 
+def configuration_bool_error(tag: str, value: str, attribute: str='enabled') -> str:
+    '''Returns the error message when a boolean in the configuration file is invalid.
+    
+    Arguments:
+
+        tag: The XML tag name.
+
+        value: The value the boolean attribute was set to.
+
+        attribute: The XML attribute name.
+
+    '''
+
+    return (
+        f'The <{tag}> element has attribute enabled="{value}" in the configuration file. '
+        f'Expected enabled="true" or enabled="false".'
+    )
+
 # Iterates through the list of possible file paths until the file is found.
 # The first file that is found is used.
 # The config_file variable is set only when a file is found.
@@ -87,12 +105,7 @@ except ModuleNotFoundError:
 try:
     DEBUG = str_to_bool(get_unique_xml_element(mode, 'debug').get('enabled'))
 except ValueError:
-    raise ConfigurationError(
-        'The <debug> element consists of '
-        f'<debug enabled="{get_unique_xml_element(mode, 'debug').get('enabled')}" />'
-        'in the configuration file. '
-        'Expected <debug enabled="true" /> or <debug enabled="false" />'
-    )
+    raise ConfigurationError(configuration_bool_error('debug', get_unique_xml_element(mode, 'debug').get('enabled')))
 
 # Apply the SECRET_KEY setting.
 # If the current mode does not specify this setting, raise an error.
