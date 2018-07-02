@@ -13,7 +13,12 @@ def google_web_utils(request):
 
     Creates a variables called 'google_site_verification'..
     '''
+    
+    try:
+        google_site_verification = settings.GOOGLE_SITE_VERIFICATION
+    except:
+        google_site_verification = ''
 
     return {
-        'google_site_verification': settings.GOOGLE_SITE_VERIFICATION,
+        'google_site_verification': google_site_verification,
     }
