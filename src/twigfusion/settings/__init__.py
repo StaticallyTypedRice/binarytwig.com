@@ -119,6 +119,17 @@ if not SECRET_KEY:
         'file consists of an empty string.'
     )
 
+# Apply the Django allowed hosts if applicable.
+try:
+    ALLOWED_HOSTS = []
+    for host in get_unique_xml_element(mode, 'allowed-hosts'):
+        # Iterate through the list of allowed hosts.
+        if host.tag == 'host':
+            # Only use IP addresses in the <host> tags.
+            ALLOWED_HOSTS.append(host)
+except XmlElementNotFound:
+    pass
+
 # Apply database configurations if applicable.
 try:
     database = get_unique_xml_element(mode, 'database')
