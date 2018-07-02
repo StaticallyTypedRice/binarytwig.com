@@ -19,7 +19,7 @@
 
         {# Display the website mode if the user is an admin #}
         {% if request.user.is_staff %}
-            <span class="website-mode">Mode: {{ website_mode }}.</span>
+            <span class="website-mode" title="{{ website_config_message }}">Mode: {{ website_mode }}.</span>
         {% endif %}
     </span>
 

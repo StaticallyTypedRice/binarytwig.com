@@ -79,6 +79,9 @@ mode_name = get_unique_xml_element(config, 'current-mode').text
 if not mode_name:
     raise ConfigurationError('The current website mode was not specified.')
 
+# Set the MODE settings variable.
+MODE = get_unique_xml_element(config, 'current-mode').text
+
 # Parse the modes list and find the current mode.
 mode = None
 for m in get_unique_xml_element(config, 'modes').findall('mode'):
@@ -93,6 +96,12 @@ for m in get_unique_xml_element(config, 'modes').findall('mode'):
                 'There is more than one mode with '
                 f'the name \'{mode_name}\'.'
             )
+
+# Set the configuration file message if applicable.
+try:
+    CONFIGURATION_FILE_MESSAGE = get_unique_xml_element(config, 'message').text
+except XmlElementNotFound:
+    pass
 
 # Import the settings file corresponding to the selected mode if it exists.
 try:
