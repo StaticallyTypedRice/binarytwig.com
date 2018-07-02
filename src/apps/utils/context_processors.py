@@ -19,7 +19,7 @@ def website_mode(request):
 def google_web_utils(request):
     '''Obtains Google webmaster tools configuration from settings.
 
-    Creates a context variable called 'google_site_verification'..
+    Creates a context variable called 'google_site_verification'.
     '''
 
     try:
