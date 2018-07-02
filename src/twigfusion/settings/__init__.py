@@ -103,12 +103,6 @@ try:
 except XmlElementNotFound:
     pass
 
-# Import the settings file corresponding to the selected mode if it exists.
-try:
-    exec(f'from .{mode_name} import *')
-except ModuleNotFoundError:
-    pass
-
 # Apply the DEBUG setting.
 # If the current mode does not specify this setting, raise an error.
 try:
@@ -281,6 +275,12 @@ try:
     del analytics
 
 except XmlElementNotFound:
+    pass
+
+# Import the settings file corresponding to the selected mode if it exists.
+try:
+    exec(f'from .{mode_name} import *')
+except ModuleNotFoundError:
     pass
 
 # Delete non-settings variables
