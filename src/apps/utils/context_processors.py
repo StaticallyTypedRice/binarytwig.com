@@ -6,9 +6,14 @@ def website_mode(request):
     Creates the context variables 'website_mode' and 'website_config_message'.
     '''
 
+    try:
+        website_config_message = settings.CONFIGURATION_FILE_MESSAGE
+    except NameError:
+        website_config_message = ''
+
     return {
         'website_mode': settings.MODE,
-        'website_config_message': settings.CONFIGURATION_FILE_MESSAGE,
+        'website_config_message': website_config_message,
     }
 
 def google_web_utils(request):
@@ -16,10 +21,10 @@ def google_web_utils(request):
 
     Creates a context variable called 'google_site_verification'..
     '''
-    
+
     try:
         google_site_verification = settings.GOOGLE_SITE_VERIFICATION
-    except:
+    except NameError:
         google_site_verification = ''
 
     return {
