@@ -225,7 +225,6 @@ try:
                 # Only use IP addresses in the <address> tags.
                 ANALYTICAL_INTERNAL_IPS.append(ip)
 
-        del analytics
     except XmlElementNotFound:
         pass
     try:
