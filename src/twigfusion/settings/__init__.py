@@ -131,6 +131,7 @@ except XmlElementNotFound:
     pass
 
 # Apply logging configuration data if applicable.
+# The variable "LOGGING"
 try:
     logging = get_unique_xml_element(mode, 'logging')
     LOGGING_ENABLED = str_to_bool(logging.get('enabled'))
@@ -142,6 +143,12 @@ if LOGGING_ENABLED:
         LOGGING_FILE = get_unique_xml_element(logging, 'file')
     except XmlElementNotFound:
         pass
+        
+try:
+    del logging
+except NameError:
+    pass
+
 
 # Apply database configurations if applicable.
 try:
