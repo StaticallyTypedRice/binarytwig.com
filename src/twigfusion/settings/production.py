@@ -15,3 +15,30 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 ALLOWED_HOSTS = ['*']
+
+# Logging
+if LOGGING_ENABLED:
+    # Check that the logfile exists.
+    # If not, create it.
+    with open(LOGGING_FILE, 'w') as logfile:
+        logfile.write(f'{WEBSITE_NAME} website log file.\n\n')
+
+    # Configure logging.
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': LOGGING_FILE,
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }
