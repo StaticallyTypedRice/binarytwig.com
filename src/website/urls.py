@@ -1,4 +1,4 @@
-'''twigfusion URL Configuration
+'''Website URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -21,6 +21,7 @@ from django.views.generic import TemplateView
 
 # Imports from views
 from apps.home import views as home
+from apps.about import views as about
 from apps.utils import views as utils
 
 # Regular webpages
@@ -30,7 +31,9 @@ pages = [
     url(r'^$', home.home, name='home'),
 
     # About page
-    url(r'^about/$', home.about, name='about'),
+    url(r'^about/$', about.about, name='about'),
+    url(r'^about/third-party-licenses/$', about.third_party_licenses,
+        name='third_party_licenses'),
 
     # Blog
     url(r'^', include('apps.blog.urls')),
@@ -42,6 +45,8 @@ pages = [
     url(r'^about/privacy/$', utils.privacy_policy, name='privacy_policy'),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='misc/robots.txt',
                                                content_type='text/plain')),
+    url(r'^web\.manifest$', TemplateView.as_view(template_name='misc/web.manifest',
+                                                 content_type='application/manifest+json')),
 
 ]
 
