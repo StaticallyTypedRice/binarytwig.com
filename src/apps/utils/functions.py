@@ -2,7 +2,77 @@ import markdown as markdown_parser
 import html as html_parser
 
 from django.core.paginator import Paginator, EmptyPage
+from xml.etree.ElementTree import Element
 
+from .exceptions import XmlElementNotFound, XmlElementNotUnique
+
+def str_to_bool(string: str, strict=True) -> bool:
+    '''Parses the strings 'true' or 'false' to a boolean.
+
+    The strings are not case sensitive.
+
+    Arguments:
+
+        string: The string to be parsed.
+
+        strict: If True, only 'true' and 'false' will be parsed, 
+                with other strings raising a ValueError.
+                If False, 'true' will return True and other strings
+                will return False. 
+    
+    NOTE: This is different from using the bool() function on a string.
+          The bool() function returns false for an empty string,
+          and returns true otherwise. This function parses the words
+          'true' and 'false' into a boolean.'''
+
+    # Use the lower-case version of the string
+    string_lowercase = string.lower()
+
+    if string_lowercase == 'true':
+        # the string is equal to 'true'
+        return True
+    else:
+        if strict:
+            if string_lowercase == 'false':
+                # the string is equal to 'false'
+                return False
+            else:
+                # The string is invalid
+                raise ValueError(
+                    f'The string \'{string}\' is invalid. '
+                    'Only \'true\' or \'false\' are valid in strict mode.'
+                )
+        else:
+            # The string does not equal 'true'
+            return False
+
+def get_unique_xml_element(scope: Element, element: str) -> Element:
+    '''Returns an XML element if it is unique in the current scope.
+    Returns an error if it is not unique or was not found.
+
+    Uses defusedxml for parsing.
+
+    Arguments:
+
+        scope: The current XML scope.
+
+        element: The name of the element.
+
+    '''
+
+    # Find all occurances of the specified element
+    elements = scope.findall(element)
+
+    if len(elements) == 0:
+        # If there are no elements, raise an error.
+        raise XmlElementNotFound(f'Could not find the <{element}> element.')
+    elif len(elements) > 1:
+        # If there is more than one element, raise an error.
+        raise XmlElementNotUnique(f'There is more than one <{element}> element.')
+    else:
+        # Return the element
+        return elements[0]
+            
 def parse_formatting(text: str, html: bool = False, markdown: bool = False) -> str:
     '''Parses formatted text.
 

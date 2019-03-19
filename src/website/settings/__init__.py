@@ -61,14 +61,14 @@ if config.tag != 'website':
 
 try:
     # If the 'name' attribute is not the website name, raise an error.
-    if config.get('name') != WEBSITE_NAME:
+    if config.get('name') != WEBSITE_NAME_SLUG:
         raise ConfigurationError(
             f'The website name is \'{config.attrib["name"]}\', '
-            f'expected \'{WEBSITE_NAME}\'.'
+            f'expected \'{WEBSITE_NAME_SLUG}\'.'
         )
 except NameError:
-    # If WEBSITE_NAME is not defined, raise an error.
-    raise ConfigurationError('The WEBSITE_NAME variable is not defined in the Django settings.')
+    # If WEBSITE_NAME_SLUG is not defined, raise an error.
+    raise ConfigurationError('The WEBSITE_NAME_SLUG variable is not defined in the Django settings.')
 except KeyError:
     # If there is no website name, raise an error.
     raise ConfigurationError('A website name was not specified in the configuration file.')

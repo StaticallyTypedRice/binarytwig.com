@@ -1,7 +1,7 @@
 {
-  "name": "twigfusion",
+  "name": "binarytwig",
   "version": "0.0.1",
-  "description": "Source code for the TwigFusion website.",
+  "description": "Source code for the BinaryTwig website.",
   "main": "index.js",
   "dependencies": {
     "@types/clipboard": "^1.5.34",
