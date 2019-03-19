@@ -1,4 +1,4 @@
-## TwigFusion Website Setup
+## Website Setup
 
 # Install website dependencies
 pip install -r requirements.txt
