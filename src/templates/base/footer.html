@@ -1,7 +1,7 @@
 {# Footer #}
 <footer>
     <ul class="footer-links">
-        <li class="brand"><a href="{% url 'home' %}">TwigFusion</a></li>
+        <li class="brand"><a href="{% url 'home' %}">{{ website_name_stylized }}</a></li>
         <li>&#183;</li>
         <li><a href="javascript:window.scrollTo(0, 0)">Top</a></li>
         <li><a href="{% url 'about' %}">About</a></li>
@@ -9,7 +9,7 @@
     </ul>
 
     <span>
-        <span>&copy; 2018 TwigFusion.</span>
+        <span>&copy; 2018 {{ website_name }}.</span>
         <a href="{% url 'third_party_licenses' %}" class="footer-text-separator">Third party licenses</a>
         <a class="footer-text-separator" href="{% url 'privacy_policy' %}">Privacy Policy</a>
     </span>

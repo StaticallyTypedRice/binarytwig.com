@@ -1,4 +1,4 @@
-'''TwigFusion Blog URL Configuration'''
+'''Blog URL Configuration'''
 
 from django.conf.urls import url
 

@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class BlogConfig(AppConfig):
     name = 'blog'
-    verbose_name = "TwigFusion Blog"
+    verbose_name = "Blog"
