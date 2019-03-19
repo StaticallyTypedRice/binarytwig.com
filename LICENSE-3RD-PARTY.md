@@ -122,7 +122,7 @@ THE SOFTWARE.
 # Licenses for third party images
 
 * [`favicon.png`](misc/images/third-party/favicon.png)
-    * This is not TwigFusion's logo.
+    * This is not the website logo.
     * Modifications: Cropped the image to reduce blank space.
     * Original Source: [Iconfinder](https://www.iconfinder.com/icons/283051/agenda_book_diary_moleskine_note_notebook_notes_pad_icon)
     * Licence: [Iconfinder's "Free for commercial use" license](https://docs.google.com/spreadsheets/u/1/d/1E8X2_xmJkkoeZwa1HPNG6jT3ytAZlcAgzTDRX0jDF-Q/pubhtml)

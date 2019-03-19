@@ -1,5 +1,27 @@
 from django.conf import settings
 
+def website_name(request):
+    '''Obtains the website name information from the site settings.
+
+    Creates the context variables 'website_name', 'website_name_stylized' and 'website_name_slug'
+    '''
+
+    try:
+        website_name = settings.WEBSITE_NAME
+    except NameError:
+        website_name = ''
+
+    try:
+        website_name_stylized = settings.WEBSITE_NAME_STYLIZED
+    except NameError:
+        # If the stylized website name is not set, fall back to the unstylized name.
+        website_name_stylized = website_name
+
+    return {
+        'website_name': website_name,
+        'website_name_stylized': website_name_stylized,
+        'wesbite_name_slug': settings.WEBSITE_NAME_SLUG,
+    }
 def website_mode(request):
     '''Obtains the mode and configuration message of the website from the site settings.
 

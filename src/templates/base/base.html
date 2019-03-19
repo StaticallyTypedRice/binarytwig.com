@@ -7,7 +7,7 @@
         {% include "./head.html" %}
         {% block head %}{% endblock %}
 
-        <title>{% if title %}{{ title }} | {% endif %}TwigFusion</title>
+        <title>{% if title %}{{ title }} | {% endif %}{{ website_name }}</title>
     </head>
     <body>
         {% cookielaw_banner %}

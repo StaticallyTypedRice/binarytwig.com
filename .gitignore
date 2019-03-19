@@ -197,4 +197,4 @@ js/
 
 # Exceptions
 !/src/static/main/third-party/*
-!twigfusion*.ini
+!binarytwig*.ini
