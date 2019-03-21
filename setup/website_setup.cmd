@@ -14,8 +14,8 @@ cd src
 
 :: Build static files
 tsc
-python3 manage.py collectstatic
+python manage.py collectstatic
 
 :: Migrate database
-python3 manage.py makemigrations
-python3 manage.py migrate
+python manage.py makemigrations
+python manage.py migrate
