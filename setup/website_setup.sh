@@ -1,5 +1,8 @@
 ## Website Setup
 
+# Go to the project root
+cd ..
+
 # Install website dependencies
 pip install -r requirements.txt
 npm install
