@@ -93,6 +93,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 # Custom context processors
+                'apps.utils.context_processors.website_name',
                 'apps.utils.context_processors.website_mode',
                 'apps.utils.context_processors.google_web_utils',
                 'apps.home.context_processors.external_sites'
