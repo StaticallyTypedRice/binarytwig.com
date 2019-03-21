@@ -74,8 +74,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # Third party middleware classes
-    'htmlmin.middleware.HtmlMinifyMiddleware',
-    'htmlmin.middleware.MarkRequestMiddleware',
+    #'htmlmin.middleware.HtmlMinifyMiddleware',
+    #'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'website.urls'
