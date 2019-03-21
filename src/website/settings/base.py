@@ -24,7 +24,7 @@ WEBSITE_NAME_SLUG = 'binarytwig'
 
 # The website name stylized with HTML.
 # This setting is optional. If it is not set, the unstylized name will be used.
-WEBSITE_NAME_STYLIZED = 'Binary<b>Twig</b>'
+WEBSITE_NAME_STYLIZED = 'BinaryTwig'
 
 # The paths for configuration file.
 # The paths will be searched in order, and the first valid path will be used.
