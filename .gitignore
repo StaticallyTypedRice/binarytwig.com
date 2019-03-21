@@ -193,8 +193,8 @@ pip-selfcheck.json
 .vs/
 
 # Compiled TypeScript files
-js/
+src/static/main/js/
 
 # Exceptions
-!/src/static/main/third-party/*
+!src/static/main/third-party/*
 !binarytwig*.ini
