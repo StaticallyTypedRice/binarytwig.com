@@ -123,7 +123,7 @@ THE SOFTWARE.
 
 * [`favicon.png`](misc/images/third-party/favicon.png), [`favicon.svg`](misc/images/third-party/favicon.svg)
     * This is not the website logo.
-    * Original Source: [Iconfinder](https://www.iconfinder.com/icons/4178975/app_binary_code_coding_data_development_document_icon)
+    * Original Source: [Iconfinder](https://www.iconfinder.com/icons/2974390/eco_ecology_nature_plant_tree_icon)
     * Licence: [Iconfinder's "Free for commercial use" license](https://docs.google.com/spreadsheets/u/1/d/1E8X2_xmJkkoeZwa1HPNG6jT3ytAZlcAgzTDRX0jDF-Q/pubhtml)
 * [`article-file-placeholder.png`](misc/images/third-party/article-file-placeholder.png)
     * Source: [Iconfinder](https://www.iconfinder.com/icons/283040/browser_document_explorer_file_finder_format_pdf_psd_rar_text_windows_explorer_zip_icon)
