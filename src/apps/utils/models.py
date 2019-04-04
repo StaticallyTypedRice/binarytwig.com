@@ -5,7 +5,7 @@ from django.db import models
 class PrivacyPolicy(models.Model):
     '''The model for the Privacy policy pages.'''
 
-    content = models.CharField(max_length=500000, blank=False, null=False)
+    content = models.TextField(max_length=500000, blank=False, null=False)
 
     current = models.BooleanField(null=False, default=True,
                                   help_text='Is this the current privacy policy?')
