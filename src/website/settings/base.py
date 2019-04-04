@@ -29,7 +29,7 @@ WEBSITE_NAME_STYLIZED = 'BinaryTwig'
 # The paths for configuration file.
 # The paths will be searched in order, and the first valid path will be used.
 CONFIGURATION_FILE_PATHS = [
-    os.path.join(BASE_DIR, '..', '..', 'config', WEBSITE_NAME_SLUG + '.config'),
+    os.path.join(BASE_DIR, '..', 'private', WEBSITE_NAME_SLUG + '.config'),
     os.path.join(BASE_DIR, '..', 'setup', WEBSITE_NAME_SLUG + '.config')
 ]
 
