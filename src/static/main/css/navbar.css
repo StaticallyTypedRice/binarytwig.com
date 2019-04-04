@@ -28,6 +28,14 @@
 .navbar-default .navbar-brand:focus {
     color: var(--ui-color-primary);
     background-color: #ffffff;
+    display: inline-block;
+}
+.navbar-default .navbar-brand .navbar-favicon {
+    padding-bottom: 3%;
+    padding-right: 3px;
+    height: 100%;
+    display: inline;
+    
 }
 
 /* Mobile navbar dropdown */
@@ -60,3 +68,5 @@
     border-radius: 0;
     box-shadow: none;
 }
+
+
