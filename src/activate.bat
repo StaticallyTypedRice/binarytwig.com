@@ -2,4 +2,4 @@
 
 cd ..
 
-cmd /k .\Scripts\activate
+cmd /k .\venv\Scripts\activate
