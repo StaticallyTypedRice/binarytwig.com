@@ -1,7 +1,7 @@
 {# Footer #}
 <footer>
     <ul class="footer-links">
-        <li class="brand"><a href="{% url 'home' %}">{{ website_name_stylized }}</a></li>
+        <li class="brand"><a href="{% url 'home' %}">{{ website_name_stylized|safe }}</a></li>
         <li>&#183;</li>
         <li><a href="javascript:window.scrollTo(0, 0)">Top</a></li>
         <li><a href="{% url 'about' %}">About</a></li>
