@@ -7,11 +7,10 @@
     "@types/clipboard": "^1.5.34",
     "@types/dropzone": "^5.0.0",
     "@types/jquery": "^3.2.11",
-    "@types/js-cookie": "^2.0.28"
-  },
-  "devDependencies": {
+    "@types/js-cookie": "^2.0.28",
     "typescript": "latest"
   },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

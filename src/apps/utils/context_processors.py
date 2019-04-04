@@ -48,7 +48,7 @@ def google_web_utils(request):
 
     try:
         google_site_verification = settings.GOOGLE_SITE_VERIFICATION
-    except NameError:
+    except AttributeError:
         google_site_verification = ''
 
     return {
