@@ -198,3 +198,6 @@ src/static/main/js/
 # Exceptions
 !src/static/main/third-party/*
 !binarytwig*.ini
+
+# The private directory for internal and production files
+private/
