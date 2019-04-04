@@ -139,7 +139,7 @@ try:
     ]
     for key in database_keys:
         try:
-            DATABASES['default'][key] = get_unique_xml_element(database, key).text
+            DATABASES['default'][key.upper()] = get_unique_xml_element(database, key).text
         except XmlElementNotFound:
             pass
 
