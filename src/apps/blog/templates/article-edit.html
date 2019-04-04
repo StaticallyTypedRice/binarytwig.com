@@ -77,7 +77,7 @@
                                     <button class="btn btn-danger btn-article-file-delete" onclick="articleFileDelete('{{ file.id }}', '{{ file.associated_file.url }}')">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </button>
-                                    <a class="btn btn-primary btn-article-file-edit" href="{% url 'admin:article_articlefile_change' file.id %}" target="_blank">
+                                    <a class="btn btn-primary btn-article-file-edit" href="{% url 'admin:blog_articlefile_change' file.id %}" target="_blank">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </a>
                                 </div>
