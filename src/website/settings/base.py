@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import os.path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 SETTINGS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,10 +27,15 @@ WEBSITE_NAME_SLUG = 'binarytwig'
 # This setting is optional. If it is not set, the unstylized name will be used.
 WEBSITE_NAME_STYLIZED = 'BinaryTwig'
 
+# The project private directory
+# This is for production logs and configuration files
+# This directory is gitignored to prevent production data from leaking
+PRIVATE_DIR = os.path.join(BASE_DIR, '..', 'private')
+
 # The paths for configuration file.
 # The paths will be searched in order, and the first valid path will be used.
 CONFIGURATION_FILE_PATHS = [
-    os.path.join(BASE_DIR, '..', 'private', WEBSITE_NAME_SLUG + '.config'),
+    os.path.join(PRIVATE_DIR, WEBSITE_NAME_SLUG + '.config'),
     os.path.join(BASE_DIR, '..', 'setup', WEBSITE_NAME_SLUG + '.config')
 ]
 
@@ -168,3 +174,44 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # django-htmlmin
 HTML_MINIFY = True
 KEEP_COMMENTS_ON_MINIFYING = True
+
+# Logging
+LOG_FILES = [
+    os.path.join(PRIVATE_DIR, WEBSITE_NAME_SLUG + '.info.log'),
+    os.path.join(PRIVATE_DIR, WEBSITE_NAME_SLUG + '.error.log'),
+]
+
+if not os.path.exists(PRIVATE_DIR):
+    # Create the 'private' directory if it doesn't exist
+    os.makedirs(PRIVATE_DIR)
+
+for log_file in LOG_FILES:
+    # Create the log files if it doesn't exist
+    if not os.path.exists(log_file):
+        with open(log_file, 'w') as f:
+            pass
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'info': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': LOG_FILES[0],
+        },
+        'error': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': LOG_FILES[1],
+
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['info', 'error'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
