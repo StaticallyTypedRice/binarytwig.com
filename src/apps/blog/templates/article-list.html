@@ -13,7 +13,7 @@
         <h1>All articles</h1>
         <p>All articles on {{ website_name }}. Articles are sorted by newest first.</p>
     </div>
-    <div class="card no-padding">
+    <div class="card {% if articles %}no-padding{% endif %}">
         {% for article in articles %}
             <div class="media article-list-item">
                 <div class="media-left">
