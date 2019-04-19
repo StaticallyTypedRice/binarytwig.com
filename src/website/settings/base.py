@@ -176,7 +176,7 @@ HTML_MINIFY = True
 KEEP_COMMENTS_ON_MINIFYING = True
 
 # Logging
-LOG_DIR = os.path.join(PRIVATE_DIR, 'log')
+LOG_DIR = os.path.join(BASE_DIR, '..', 'log')
 LOG_FILES = [
     os.path.join(LOG_DIR, WEBSITE_NAME_SLUG + '.debug.log'),
     os.path.join(LOG_DIR, WEBSITE_NAME_SLUG + '.info.log'),

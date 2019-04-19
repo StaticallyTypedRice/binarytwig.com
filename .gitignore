@@ -201,3 +201,6 @@ src/static/main/js/
 
 # The private directory for internal and production files
 private/
+
+# The logging directory
+log/
