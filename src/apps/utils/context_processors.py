@@ -60,14 +60,21 @@ def html_modifications(request):
 
     Creates a context variable called 'html_modifications'.
     '''
-    
-    html_modifications = HtmlModifications.objects.get()
 
-    # If the modifications are not implemented, return empty strings
-    if not html_modifications.implemented:
-        html_modifications = {
-            'head': '',
-            'tail': '',
-        }
+    # Return empty strings if no modifications are present
+    no_modifications = {
+        'head': '',
+        'tail': '',
+    }
+    
+    try:
+        html_modifications = HtmlModifications.objects.get()
+
+        # If the modifications are not implemented, return empty strings
+        if not html_modifications.implemented:
+            html_modifications = no_modifications
+
+    except HtmlModifications.DoesNotExist:
+        html_modifications = no_modifications
 
     return {'html_modifications': html_modifications}
