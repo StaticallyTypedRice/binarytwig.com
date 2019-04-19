@@ -40,7 +40,7 @@ class HtmlModifications(models.Model):
 class RobotsTxtModifications(models.Model):
     '''The model for modifications to the robots.txt page.'''
 
-    modifications = models.CharField(max_length=500000, blank=False, null=False,
+    modifications = models.CharField(max_length=500000, blank=True, null=False,
                                      help_text='These modifications will be placed at the end of the robots.txt file.')
 
     implemented = models.BooleanField(null=False, default=False,
