@@ -1,5 +1,7 @@
 from django.conf import settings
 
+from .models import HtmlModifications
+
 def website_name(request):
     '''Obtains the website name information from the site settings.
 
@@ -46,9 +48,26 @@ def google_web_utils(request):
 
     try:
         google_site_verification = settings.GOOGLE_SITE_VERIFICATION
-    except NameError:
+    except AttributeError:
         google_site_verification = ''
 
     return {
         'google_site_verification': google_site_verification,
     }
+
+def html_modifications(request):
+    '''Gets the HTML modifications from the database.
+
+    Creates a context variable called 'html_modifications'.
+    '''
+    
+    html_modifications = HtmlModifications.objects.get()
+
+    # If the modifications are not implemented, return empty strings
+    if not html_modifications.implemented:
+        html_modifications = {
+            'head': '',
+            'tail': '',
+        }
+
+    return {'html_modifications': html_modifications}

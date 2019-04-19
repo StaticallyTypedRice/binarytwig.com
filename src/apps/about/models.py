@@ -5,7 +5,7 @@ from django.db import models
 class About(models.Model):
     '''The model for the About page content.'''
 
-    content = models.CharField(max_length=500000, blank=False, null=False,
+    content = models.TextField(max_length=500000, blank=False, null=False,
                                help_text='The page content.')
 
     markdown = models.BooleanField(null=False, default=True,

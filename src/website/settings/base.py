@@ -24,12 +24,12 @@ WEBSITE_NAME_SLUG = 'binarytwig'
 
 # The website name stylized with HTML.
 # This setting is optional. If it is not set, the unstylized name will be used.
-WEBSITE_NAME_STYLIZED = 'Binary<b>Twig</b>'
+WEBSITE_NAME_STYLIZED = 'BinaryTwig'
 
 # The paths for configuration file.
 # The paths will be searched in order, and the first valid path will be used.
 CONFIGURATION_FILE_PATHS = [
-    os.path.join(BASE_DIR, '..', '..', WEBSITE_NAME_SLUG + '.config'),
+    os.path.join(BASE_DIR, '..', 'private', WEBSITE_NAME_SLUG + '.config'),
     os.path.join(BASE_DIR, '..', 'setup', WEBSITE_NAME_SLUG + '.config')
 ]
 
@@ -74,8 +74,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # Third party middleware classes
-    'htmlmin.middleware.HtmlMinifyMiddleware',
-    'htmlmin.middleware.MarkRequestMiddleware',
+    #'htmlmin.middleware.HtmlMinifyMiddleware',
+    #'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'website.urls'
@@ -93,8 +93,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 # Custom context processors
+                'apps.utils.context_processors.website_name',
                 'apps.utils.context_processors.website_mode',
                 'apps.utils.context_processors.google_web_utils',
+                'apps.utils.context_processors.html_modifications',
                 'apps.home.context_processors.external_sites'
             ],
         },
