@@ -176,14 +176,16 @@ HTML_MINIFY = True
 KEEP_COMMENTS_ON_MINIFYING = True
 
 # Logging
+LOG_DIR = os.path.join(PRIVATE_DIR, 'log')
 LOG_FILES = [
-    os.path.join(PRIVATE_DIR, WEBSITE_NAME_SLUG + '.info.log'),
-    os.path.join(PRIVATE_DIR, WEBSITE_NAME_SLUG + '.error.log'),
+    os.path.join(LOG_DIR, WEBSITE_NAME_SLUG + '.debug.log'),
+    os.path.join(LOG_DIR, WEBSITE_NAME_SLUG + '.info.log'),
+    os.path.join(LOG_DIR, WEBSITE_NAME_SLUG + '.error.log'),
 ]
 
-if not os.path.exists(PRIVATE_DIR):
+if not os.path.exists(LOG_DIR):
     # Create the 'private' directory if it doesn't exist
-    os.makedirs(PRIVATE_DIR)
+    os.makedirs(LOG_DIR)
 
 for log_file in LOG_FILES:
     # Create the log files if it doesn't exist
@@ -198,20 +200,21 @@ LOGGING = {
         'info': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': LOG_FILES[0],
+            'filename': LOG_FILES[1],
         },
         'error': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': LOG_FILES[1],
+            'filename': LOG_FILES[2],
 
         }
     },
     'loggers': {
         'django': {
-            'handlers': ['info', 'error'],
+            'handlers': ['debug', 'info', 'error'],
             'level': 'INFO',
             'propagate': True,
         },
     },
 }
+

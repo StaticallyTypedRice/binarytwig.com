@@ -283,6 +283,16 @@ try:
 except XmlElementNotFound:
     pass
 
+# Add debug logging when run in debug mode.
+if DEBUG:
+    LOGGING['handlers']['debug'] = {
+        'level': 'DEBUG',
+        'class': 'logging.FileHandler',
+        'filename': LOG_FILES[0],
+    }
+    LOGGING['loggers']['django']['handlers'].append('debug')
+    LOGGING['loggers']['django']['level'] = "DEBUG"
+
 # Delete non-settings variables
 del config_file
 del config
