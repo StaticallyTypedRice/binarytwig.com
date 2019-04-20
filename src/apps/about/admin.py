@@ -40,9 +40,9 @@ class AboutAdmin(admin.ModelAdmin):
 class ThirdPartyLicensesAdmin(AboutAdmin):
     '''The admin page for the ThirdPartyLicenses model.'''
 
-    resource_class = AboutResource
+    resource_class = ThirdPartyLicensesResource
 
-    form = AboutForm
+    form = ThirdPartyLicensesForm
 
     model = ThirdPartyLicenses
 

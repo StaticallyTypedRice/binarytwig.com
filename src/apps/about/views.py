@@ -9,7 +9,14 @@ def about_abstract(request, model, template, navbar_selected=False):
     '''Abstract function for the pages'''
 
     try:
-        content = model.objects.get()
+        query = model.objects.all()
+
+        content = None
+        for c in query:
+            content = c
+
+        print(type(content))
+        
         content.content = parse_formatting(content.content,
                                            html=content.html,
                                            markdown=content.markdown)
